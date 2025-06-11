@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import { useQuiz } from '../../context/QuizContext'
-import { StyledScreen } from './style'
+import { Button, ButtonGroup, Controls, StyledScreen } from './style'
 
 const InitialScreen = () => {
-  const { allQuestions, dispatch } = useQuiz()
+  const { questions, dispatch } = useQuiz()
   const [numQuestions, setNumQuestions] = useState(5)
   const [subject, setSubject] = useState('All')
   const [isLoading, setIsLoading] = useState(false)
@@ -37,7 +37,7 @@ const InitialScreen = () => {
   return (
     <StyledScreen>
       <h2>Bem-vindo(a) ao Quiz de Direito!</h2>
-      <h3>{allQuestions.length} questões prontas para testar você.</h3>
+      <h3>{questions.length} questões prontas para testar você.</h3>
       <Controls>
         <label htmlFor="subject">Matéria:</label>
         <select

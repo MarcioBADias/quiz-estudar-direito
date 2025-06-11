@@ -1,4 +1,3 @@
-// src/contexts/QuizContext.jsx
 import { createContext, useContext, useReducer, useEffect } from 'react'
 import { supabase } from '@/supabaseClient'
 
