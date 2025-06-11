@@ -1,10 +1,10 @@
-import React from 'react'
+import { Logo, StyledHeader, Title } from './style'
 
 const Header = () => (
-  <header className="app-header">
-    <img src="./Estudar.png" alt="Logo" />
-    <h1>Quiz de Estudar Direito</h1>
-  </header>
+  <StyledHeader>
+    <Logo src="./Estudar.png" alt="Logo" />
+    <Title>Quiz de Estudar Direito</Title>
+  </StyledHeader>
 )
 
 export { Header }

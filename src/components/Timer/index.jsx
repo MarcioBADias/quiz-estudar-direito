@@ -1,13 +1,26 @@
-import React from 'react'
+import { useEffect } from 'react'
+import { useQuiz } from '../../context/QuizContext'
+import { TimerContainer } from './style'
 
-const Timer = ({ appState }) => {
-  const minutes = Math.floor(appState.seconds / 60)
-  const secs = appState.seconds % 60
+const Timer = () => {
+  const { secondsRemaining, dispatch } = useQuiz()
+  const minutes = Math.floor(secondsRemaining / 60)
+  const secs = secondsRemaining % 60
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      dispatch({ type: 'timer/tick' })
+    }, 1000)
+
+    return () => clearInterval(id)
+  }, [dispatch])
 
   return (
-    <div className="timer">
-      {minutes < 10 ? `0${minutes}` : minutes} : {secs < 10 ? `0${secs}` : secs}
-    </div>
+    <TimerContainer>
+      {minutes < 10 && '0'}
+      {minutes}:{secs < 10 && '0'}
+      {secs}
+    </TimerContainer>
   )
 }
 

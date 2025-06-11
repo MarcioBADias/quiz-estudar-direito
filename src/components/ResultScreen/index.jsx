@@ -1,21 +1,21 @@
-import React from 'react'
+import { useQuiz } from '../../context/QuizContext'
+import { StyledResult } from './style'
 
-const ResultScreen = ({ appState, maxScore, onHandleClickRestart }) => {
-  const percentage = (appState.userScore / maxScore) * 100
+const ResultScreen = () => {
+  const { score, quizQuestions, dispatch } = useQuiz()
+  const maxScore = quizQuestions.reduce((prev, cur) => prev + cur.points, 0)
+  const percentage = Math.ceil((score / maxScore) * 100)
 
   return (
-    <>
-      <div className="result">
-        <span>
-          Voce fez <b>{appState.userScore}</b> pontos de {maxScore} (
-          {percentage}
-          %)
-        </span>
-      </div>
-      <button onClick={onHandleClickRestart} className="btn btn-ui">
-        Reiniciar o Quiz
+    <StyledResult>
+      <p className="result-summary">
+        Você fez <strong>{score}</strong> pontos de {maxScore} ({percentage}
+        %)
+      </p>
+      <button onClick={() => dispatch({ type: 'quiz/restart' })}>
+        Reiniciar Quiz
       </button>
-    </>
+    </StyledResult>
   )
 }
 

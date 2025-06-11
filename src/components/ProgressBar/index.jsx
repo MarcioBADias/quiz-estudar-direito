@@ -1,26 +1,29 @@
-import React from 'react'
+import { useQuiz } from '../../context/QuizContext'
+import { ProgressInfo, StyledProgress } from './style'
 
-const ProgressBar = ({ appState, maxScore, onUserHasAnwered }) => {
-  const progressValue = onUserHasAnwered
-    ? appState.currentQuestion + 1
-    : appState.currentQuestion
+const ProgressBar = () => {
+  const { currentIndex, quizQuestions, score, answer } = useQuiz()
+  const numQuestions = quizQuestions.length
+  const maxScore = quizQuestions.reduce((prev, cur) => prev + cur.points, 0)
+
   return (
-    <header className="progress">
-      <label>
-        <progress max={appState.apiData.length} value={progressValue}>
-          {progressValue}
-        </progress>
+    <StyledProgress>
+      <progress
+        max={numQuestions}
+        value={currentIndex + Number(answer !== null)}
+      />
+      <ProgressInfo>
         <span>
-          Questao <b>{appState.currentQuestion + 1}</b> de{' '}
-          {appState.apiData.length}
+          Questão <strong>{currentIndex + 1}</strong> de {numQuestions}
         </span>
         <span>
-          <b>
-            {appState.userScore} / {maxScore} pontos
-          </b>
+          <strong>
+            {score} / {maxScore}
+          </strong>{' '}
+          pontos
         </span>
-      </label>
-    </header>
+      </ProgressInfo>
+    </StyledProgress>
   )
 }
 
