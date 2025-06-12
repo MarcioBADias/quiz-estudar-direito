@@ -1,6 +1,8 @@
 import { useState } from 'react'
+import { supabase } from '../../supabaseClient'
 import { useQuiz } from '../../context/QuizContext'
 import { Button, ButtonGroup, Controls, StyledScreen } from './style'
+import { generatePdfCards } from '../../utils/pdfGenerator'
 
 const InitialScreen = () => {
   const { questions, dispatch } = useQuiz()
@@ -29,6 +31,7 @@ const InitialScreen = () => {
       }
     } catch (err) {
       dispatch({ type: 'questions/failed' })
+      console.error('Supabase error:', err)
     } finally {
       setIsLoading(false)
     }
